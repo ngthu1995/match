@@ -6,11 +6,11 @@
 
 body {
   margin: 20px 0;
-  background: white;
+  background-color: #344154;
 }
 
 #card-board {
-  max-width: 960px;
+  max-width: 650px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -19,14 +19,82 @@ body {
 
 .card {
   margin: 5px;
-  background-color: #6589f9;
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.4s linear;
+}
+
+/* .card:active {
+  transform: scale(0.95);
+  transition: transform 0.6s;
+}*/
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+/* .active {
+  background-color: pink;
+  border-bottom: 12px solid black;
+}
+*/
+.match {
+  border-top: 12px solid black;
+  background: yellow;
+}
+
+.card,
+.back,
+.front {
+  height: 150px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.front,
+.back {
+  position: absolute;
+  display: block;
+  height: 150px;
+  width: 150px;
+  backface-visibility: hidden;
+}
+
+.front {
+  background-color: #fcd9d3;
+}
+
+.front .back {
+  padding: 20px;
+  position: absolute;
+  border-radius: 5px;
+  background: #1c7ccc;
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+  /* background-color: #1c7ccc; */
+}
+/*
+.card {
+  position: relative;
+  transition: all 0.4s linear;
+  transform-style: preserve-3d;
+  margin: 5px;
+}
+
+.card,
+.back,
+.front {
   height: 150px;
   width: 150px;
 }
 
-.active {
-  background-color: pink;
-  border-bottom: 12px solid black;
-}
+.back,
+.front {
+  position: absolute;
+  backface-visibility: hidden;
+} */
