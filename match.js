@@ -51,7 +51,7 @@ var cards = [
 
 var cardList = [...cards];
 var cardboard = document.getElementById("card-board");
-var numberOfClick, flippedCards, flippedCardIDs;
+var numberOfMove, flippedCards, flippedCardIDs, hour, minute, second;
 let delay = 1000;
 
 ////////////////////////
@@ -65,13 +65,17 @@ let delay = 1000;
 })();
 
 function reset() {
-  numberOfClick = 0;
+  numberOfMove = 0;
   flippedCards = [];
   flippedCardIDs = [];
+  hour = 0;
+  second = 0;
+  minute = 0;
 
   shuffleCard(cardList);
 
   newBoard(cardList);
+  startTimer();
   console.log(cardList);
 }
 
@@ -105,6 +109,31 @@ function newBoard(cards) {
   cardboard.innerHTML = html;
 }
 
+function startTimer() {
+  var time = document.querySelector("#timer");
+
+  setInterval(function() {
+    second < 10 ? (second = "0" + second) : second;
+    minute < 10 ? (minutes = "0" + minute) : minute;
+
+    time.innerHTML = hour + ":" + minutes + ":" + second;
+
+    second++;
+
+    if (second === 60) {
+      minute++;
+      second = 0;
+    }
+    if (minute === 60) {
+      hour++;
+      minute = 0;
+    }
+  }, 1000);
+}
+
+////////////////////////
+////// GAME  START /////
+////////////////////////
 cardboard.addEventListener("click", function flipCard(e) {
   console.log(e.target);
   var clickedCard = e.target.parentNode;
@@ -131,14 +160,14 @@ cardboard.addEventListener("click", function flipCard(e) {
         flippedCardIDs.push(clickedCard.getAttribute("id"));
         clickedCard.classList.add("active", "flip");
         // clickedCard.classList.add("flip");
-        match(flippedCards, flippedCardIDs);
+        match(flippedCards, flippedCardIDs, cardList);
       }
     }
   }
   console.log(flippedCards, flippedCardIDs);
 });
 
-function match(cardArray, cardIds) {
+function match(cardArray, cardIds, cardList) {
   var clickedCards = document.querySelectorAll(".active");
 
   if (cardArray[0] === cardArray[1]) {
@@ -149,6 +178,7 @@ function match(cardArray, cardIds) {
         card.classList.remove("active");
         card.classList.add("match");
         console.log(card.getAttribute("id"));
+        isComplete(cardList, flippedCardIDs);
       });
     }, delay);
   } else {
@@ -160,4 +190,8 @@ function match(cardArray, cardIds) {
       });
     }, delay);
   }
+}
+
+function isComplete(cards, ids) {
+  cards.length === ids.length ? alert("Hello! I am an alert box!!") : "";
 }
