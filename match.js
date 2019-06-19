@@ -51,7 +51,7 @@ var cards = [
 
 var cardList = [...cards];
 var cardboard = document.getElementById("card-board");
-var numberOfMove, flippedCards, flippedCardIDs, hour, minute, second;
+var numberOfMove, flippedCards, flippedCardIDs, hour, minute, second, moves;
 let delay = 1000;
 
 ////////////////////////
@@ -68,6 +68,7 @@ function reset() {
   numberOfMove = 0;
   flippedCards = [];
   flippedCardIDs = [];
+  moves = 0;
   hour = 0;
   second = 0;
   minute = 0;
@@ -148,6 +149,7 @@ cardboard.addEventListener("click", function flipCard(e) {
         ? clickedCard.classList.add("active", "flip")
         : "";
     } else {
+      moveCounter();
       if (
         clickedCard.getAttribute("id") ===
         flippedCardIDs[flippedCardIDs.length - 1]
@@ -194,4 +196,20 @@ function match(cardArray, cardIds, cardList) {
 
 function isComplete(cards, ids) {
   cards.length === ids.length ? alert("Hello! I am an alert box!!") : "";
+}
+
+function star() {
+  var star = document.querySelector("#star");
+  star.innerHTML = 124;
+}
+var star = document.querySelector("#star");
+star.innerHTML = 124;
+
+////////////////////////
+////// MOVE COUNTER ////
+////////////////////////
+function moveCounter() {
+  var move = document.querySelector("#move");
+  moves++;
+  move.innerHTML = "Move: " + moves;
 }
