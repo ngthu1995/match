@@ -98,3 +98,7 @@ body {
   position: absolute;
   backface-visibility: hidden;
 } */
+
+#modal {
+  display: none;
+}

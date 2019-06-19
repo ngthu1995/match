@@ -51,8 +51,17 @@ var cards = [
 
 var cardList = [...cards];
 var cardboard = document.getElementById("card-board");
-var numberOfMove, flippedCards, flippedCardIDs, hour, minute, second, moves;
+var numberOfMove,
+  flippedCards,
+  flippedCardIDs,
+  hour,
+  minute,
+  second,
+  moves,
+  interval;
 let delay = 1000;
+var move = document.querySelector("#move");
+var time = document.querySelector("#timer");
 
 ////////////////////////
 //// INITILIAZE GAME ///
@@ -60,7 +69,6 @@ let delay = 1000;
 (function init() {
   duplicateCard(cards);
   reset();
-
   console.log(cardList);
 })();
 
@@ -74,10 +82,11 @@ function reset() {
   minute = 0;
 
   shuffleCard(cardList);
-
   newBoard(cardList);
-  startTimer();
-  console.log(cardList);
+  move.innerHTML = "Move: " + moves;
+
+  time.innerHTML = "0:00:00";
+  clearInterval(interval);
 }
 
 function duplicateCard(cards) {
@@ -110,10 +119,11 @@ function newBoard(cards) {
   cardboard.innerHTML = html;
 }
 
+////////////////////////
+////// START TIMER /////
+////////////////////////
 function startTimer() {
-  var time = document.querySelector("#timer");
-
-  setInterval(function() {
+  interval = setInterval(function() {
     second < 10 ? (second = "0" + second) : second;
     minute < 10 ? (minutes = "0" + minute) : minute;
 
@@ -143,13 +153,13 @@ cardboard.addEventListener("click", function flipCard(e) {
   }
   if (flippedCards.length < 2) {
     if (flippedCards.length === 0) {
+      moveCounter();
       flippedCards.push(clickedCard.getAttribute("name"));
       flippedCardIDs.push(clickedCard.getAttribute("id"));
       clickedCard.nodeName === "DIV"
         ? clickedCard.classList.add("active", "flip")
         : "";
     } else {
-      moveCounter();
       if (
         clickedCard.getAttribute("id") ===
         flippedCardIDs[flippedCardIDs.length - 1]
@@ -209,7 +219,9 @@ star.innerHTML = 124;
 ////// MOVE COUNTER ////
 ////////////////////////
 function moveCounter() {
-  var move = document.querySelector("#move");
   moves++;
+  if (moves === 1) {
+    startTimer();
+  }
   move.innerHTML = "Move: " + moves;
 }
