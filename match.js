@@ -78,7 +78,7 @@ var close = document.querySelector(".close");
 })();
 
 function reset() {
-  numberOfStars = 4;
+  numberOfStars = 3;
   flippedCards = [];
   flippedCardIDs = [];
   moves = 0;
@@ -238,7 +238,7 @@ function startTimer() {
 function starRating(val) {
   var html = "";
   if (val) {
-    numberOfStars < 4 ? numberOfStars++ : "";
+    numberOfStars < 3 ? numberOfStars++ : "";
     console.log(numberOfStars);
   } else {
     numberOfStars > 0 ? numberOfStars-- : "";
