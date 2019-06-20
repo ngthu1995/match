@@ -78,7 +78,7 @@ var close = document.querySelector(".close");
 })();
 
 function reset() {
-  numberOfStars = 3;
+  numberOfStars = 4;
   flippedCards = [];
   flippedCardIDs = [];
   moves = 0;
@@ -178,9 +178,9 @@ function match(cardArray, cardIds, cardList) {
         card.classList.remove("active");
         card.classList.add("match");
         console.log(card.getAttribute("id"));
-        starRating(true);
         isComplete(cardList, flippedCardIDs);
       });
+      starRating(true);
     }, delay);
   } else {
     setTimeout(() => {
@@ -238,9 +238,11 @@ function startTimer() {
 function starRating(val) {
   var html = "";
   if (val) {
-    numberOfStars < 3 ? numberOfStars++ : "";
+    numberOfStars < 4 ? numberOfStars++ : "";
+    console.log(numberOfStars);
   } else {
     numberOfStars > 0 ? numberOfStars-- : "";
+    console.log(numberOfStars);
   }
 
   for (var i = 0; i < numberOfStars; i++) {
