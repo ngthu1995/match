@@ -1,0 +1,12 @@
+{
+  "name": "match",
+  "version": "1.0.0",
+  "description": "Basic Matching Game",
+  "scripts": {
+    "start": "serve"
+  },
+  "dependencies": {
+    "serve": "^10.1.2"
+  },
+  "author": "Thu Nguyen"
+}
