@@ -50,7 +50,7 @@ var cards = [
 ];
 
 var cardList = [...cards];
-var cardboard = document.getElementById("card-board");
+
 var numberOfStars,
   flippedCards,
   flippedCardIDs,
@@ -59,10 +59,14 @@ var numberOfStars,
   second,
   moves,
   interval;
+
 let delay = 1000;
+var cardboard = document.getElementById("card-board");
 var move = document.querySelector("#move");
 var time = document.querySelector("#timer");
 var star = document.getElementById("star");
+var modal = document.getElementById("modal");
+var close = document.querySelector(".close");
 
 ////////////////////////
 //// INITILIAZE GAME ///
@@ -84,10 +88,10 @@ function reset() {
 
   shuffleCard(cardList);
   newBoard(cardList);
+  starRating(true);
 
   move.innerHTML = "Move: " + moves;
   time.innerHTML = "0:00:00";
-  starRating(true);
 
   clearInterval(interval);
 }
@@ -115,7 +119,8 @@ function newBoard(cards) {
   cards.forEach((card, i) => {
     html += `<div id="${i}" class="card" name="${card.name}"><i class="${
       card.src
-    }"></i><div class="front" ></div><div class="back" style="background-image: url(${
+    }"></i><div class="front" style="background-image: url(src/logo.png); background-repeat: no-repeat;
+    background-position: center"></div><div class="back" style="background-image: url(${
       card.src
     })"></div></div>`;
   });
@@ -127,36 +132,38 @@ function newBoard(cards) {
 ////////////////////////
 cardboard.addEventListener("click", function flipCard(e) {
   console.log(e.target);
-  var clickedCard = e.target.parentNode;
-  if (flippedCardIDs.includes(clickedCard.getAttribute("id"))) {
-    return;
-  }
-  if (flippedCards.length < 2) {
-    if (flippedCards.length === 0) {
-      moveCounter();
-      flippedCards.push(clickedCard.getAttribute("name"));
-      flippedCardIDs.push(clickedCard.getAttribute("id"));
-      clickedCard.nodeName === "DIV"
-        ? clickedCard.classList.add("active", "flip")
-        : "";
-    } else {
-      if (
-        clickedCard.getAttribute("id") ===
-        flippedCardIDs[flippedCardIDs.length - 1]
-      ) {
-        flippedCardIDs = [];
-        flippedCards = [];
-        clickedCard.classList.remove("active", "flip");
-      } else {
+  if (!e.detail || e.detail == 1) {
+    var clickedCard = e.target.parentNode;
+    if (flippedCardIDs.includes(clickedCard.getAttribute("id"))) {
+      return;
+    }
+    if (flippedCards.length < 2) {
+      if (flippedCards.length === 0) {
+        moveCounter();
         flippedCards.push(clickedCard.getAttribute("name"));
         flippedCardIDs.push(clickedCard.getAttribute("id"));
-        clickedCard.classList.add("active", "flip");
-        // clickedCard.classList.add("flip");
-        match(flippedCards, flippedCardIDs, cardList);
+        clickedCard.nodeName === "DIV"
+          ? clickedCard.classList.add("active", "flip")
+          : "";
+      } else {
+        if (
+          clickedCard.getAttribute("id") ===
+          flippedCardIDs[flippedCardIDs.length - 1]
+        ) {
+          flippedCardIDs = [];
+          flippedCards = [];
+          clickedCard.classList.remove("active", "flip");
+        } else {
+          flippedCards.push(clickedCard.getAttribute("name"));
+          flippedCardIDs.push(clickedCard.getAttribute("id"));
+          clickedCard.classList.add("active", "flip");
+          // clickedCard.classList.add("flip");
+          match(flippedCards, flippedCardIDs, cardList);
+        }
       }
     }
+    console.log(flippedCards, flippedCardIDs);
   }
-  console.log(flippedCards, flippedCardIDs);
 });
 
 function match(cardArray, cardIds, cardList) {
@@ -171,9 +178,9 @@ function match(cardArray, cardIds, cardList) {
         card.classList.remove("active");
         card.classList.add("match");
         console.log(card.getAttribute("id"));
+        starRating(true);
         isComplete(cardList, flippedCardIDs);
       });
-      starRating(true);
     }, delay);
   } else {
     setTimeout(() => {
@@ -188,7 +195,7 @@ function match(cardArray, cardIds, cardList) {
 }
 
 function isComplete(cards, ids) {
-  cards.length === ids.length ? alert("Hello! I am an alert box!!") : "";
+  ids.length === cards.length ? showModal() : "";
 }
 
 ////////////////////////
@@ -241,3 +248,24 @@ function starRating(val) {
   }
   star.innerHTML = html;
 }
+
+////////////////////////
+//// MODAL COMPLETE ////
+////////////////////////
+function showModal() {
+  modal.style.display = "block";
+}
+
+function hideModal() {
+  modal.style.display = "none";
+}
+
+close.onclick = function() {
+  modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};

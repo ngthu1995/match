@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
-    <!-- <link
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
-    /> -->
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -18,15 +22,19 @@
 
     <title>Match</title>
   </head>
-  <body>
-    <button onclick="reset()" id="reset"><i class="fa fa-repeat"></i></button>
-    <div id="timer"></div>
-    <div id="star">
-      <!-- <i class="fa fa-star" aria-hidden="true"></i>
-      <i class="fa fa-star" aria-hidden="true"></i>
-      <i class="fa fa-star" aria-hidden="true"></i> -->
+  <div class="bg-white">
+      <div class="text-center" style="padding: 0.5rem; top: 0"><h2>Matching Game</h2></div>
+      <div class="navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-between" style="max-width: 570px; margin: 0 auto">
+          <div class="nav-item" id="move"></div>
+          <div class="nav-item" id="timer"></div>
+          <div class="nav-item" id="star"></div>
+          <button onclick="reset()" class="btn btn-link nav-item reset ">
+            <i class="fa fa-repeat"  style="color: #805ce5"></i>
+          </button>
+        </div>
     </div>
-    <div id="move"></div>
+
+
     <span id="card-board"></span>
 
     <!-- The Modal -->
@@ -34,7 +42,14 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
+        <p>Woo-hoo! You won!</p>
+        <button
+          onclick="reset(), hideModal()"
+          class="btn text-white mint reset"
+         
+        >
+          Start New Game
+        </button>
       </div>
     </div>
 
