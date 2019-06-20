@@ -51,7 +51,7 @@ var cards = [
 
 var cardList = [...cards];
 var cardboard = document.getElementById("card-board");
-var numberOfMove,
+var numberOfStars,
   flippedCards,
   flippedCardIDs,
   hour,
@@ -62,6 +62,7 @@ var numberOfMove,
 let delay = 1000;
 var move = document.querySelector("#move");
 var time = document.querySelector("#timer");
+var star = document.getElementById("star");
 
 ////////////////////////
 //// INITILIAZE GAME ///
@@ -73,19 +74,21 @@ var time = document.querySelector("#timer");
 })();
 
 function reset() {
-  numberOfMove = 0;
+  numberOfStars = 3;
   flippedCards = [];
   flippedCardIDs = [];
   moves = 0;
   hour = 0;
-  second = 0;
+  second = 1;
   minute = 0;
 
   shuffleCard(cardList);
   newBoard(cardList);
-  move.innerHTML = "Move: " + moves;
 
+  move.innerHTML = "Move: " + moves;
   time.innerHTML = "0:00:00";
+  starRating(true);
+
   clearInterval(interval);
 }
 
@@ -117,29 +120,6 @@ function newBoard(cards) {
     })"></div></div>`;
   });
   cardboard.innerHTML = html;
-}
-
-////////////////////////
-////// START TIMER /////
-////////////////////////
-function startTimer() {
-  interval = setInterval(function() {
-    second < 10 ? (second = "0" + second) : second;
-    minute < 10 ? (minutes = "0" + minute) : minute;
-
-    time.innerHTML = hour + ":" + minutes + ":" + second;
-
-    second++;
-
-    if (second === 60) {
-      minute++;
-      second = 0;
-    }
-    if (minute === 60) {
-      hour++;
-      minute = 0;
-    }
-  }, 1000);
 }
 
 ////////////////////////
@@ -184,6 +164,7 @@ function match(cardArray, cardIds, cardList) {
 
   if (cardArray[0] === cardArray[1]) {
     console.log(clickedCards);
+
     cardArray.splice(-2, 2);
     setTimeout(() => {
       clickedCards.forEach(card => {
@@ -192,6 +173,7 @@ function match(cardArray, cardIds, cardList) {
         console.log(card.getAttribute("id"));
         isComplete(cardList, flippedCardIDs);
       });
+      starRating(true);
     }, delay);
   } else {
     setTimeout(() => {
@@ -200,6 +182,7 @@ function match(cardArray, cardIds, cardList) {
       clickedCards.forEach(card => {
         card.classList.remove("active", "flip");
       });
+      starRating(false);
     }, delay);
   }
 }
@@ -207,13 +190,6 @@ function match(cardArray, cardIds, cardList) {
 function isComplete(cards, ids) {
   cards.length === ids.length ? alert("Hello! I am an alert box!!") : "";
 }
-
-function star() {
-  var star = document.querySelector("#star");
-  star.innerHTML = 124;
-}
-var star = document.querySelector("#star");
-star.innerHTML = 124;
 
 ////////////////////////
 ////// MOVE COUNTER ////
@@ -224,4 +200,44 @@ function moveCounter() {
     startTimer();
   }
   move.innerHTML = "Move: " + moves;
+}
+
+////////////////////////
+////// START TIMER /////
+////////////////////////
+function startTimer() {
+  interval = setInterval(function() {
+    second < 10 ? (second = "0" + second) : second;
+    minute < 10 ? (minutes = "0" + minute) : minute;
+
+    time.innerHTML = hour + ":" + minutes + ":" + second;
+
+    second++;
+
+    if (second === 60) {
+      minute++;
+      second = 0;
+    }
+    if (minute === 60) {
+      hour++;
+      minute = 0;
+    }
+  }, 1000);
+}
+
+////////////////////////
+////// START RATING ////
+////////////////////////
+function starRating(val) {
+  var html = "";
+  if (val) {
+    numberOfStars < 3 ? numberOfStars++ : "";
+  } else {
+    numberOfStars > 0 ? numberOfStars-- : "";
+  }
+
+  for (var i = 0; i < numberOfStars; i++) {
+    html += `<i class="fa fa-star" aria-hidden="true"></i>`;
+  }
+  star.innerHTML = html;
 }
