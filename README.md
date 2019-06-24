@@ -18,13 +18,13 @@ Timer - A timer displaying the number of minutes and seconds that have elapsed. 
 
 Move Counter - Displays the number of turns the player has taken, starting with one at the first turn.
 
-### Screenshot:
-
-![Main site](/src/demo.png "Screenshot of the matching game")
-
 ### Deployment:
 
 The demo site can be viewed here: https://ngthu1995-match.herokuapp.com/
+
+### Screenshot:
+
+![Main site](/src/demo.png "Screenshot of the matching game")
 
 ## Technologies & Tools
 
