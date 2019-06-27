@@ -33,6 +33,7 @@ body {
   transition: all 0.4s linear;
   border: none !important;
   background-color: transparent !important;
+  cursor: pointer;
 }
 
 /* .active {
@@ -98,10 +99,10 @@ body {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 65% !important;
+  width: 50% !important;
 }
 
 .close {
@@ -192,6 +193,10 @@ body {
   #card-board {
     margin: 1rem 0px;
   }
+
+  .modal-content {
+    width: 60% !important;
+  }
 }
 
 @media (max-width: 300px) {
@@ -201,5 +206,9 @@ body {
     height: 55px;
     width: 55px;
     border-radius: 5px !important;
+  }
+
+  .modal-content {
+    width: 65% !important;
   }
 }
