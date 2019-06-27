@@ -74,7 +74,6 @@ var close = document.querySelector(".close");
 (function init() {
   duplicateCard(cards);
   reset();
-  console.log(cardList);
 })();
 
 function reset() {
@@ -131,7 +130,6 @@ function newBoard(cards) {
 ////// GAME  START /////
 ////////////////////////
 cardboard.addEventListener("click", function flipCard(e) {
-  console.log(e.target);
   if (!e.detail || e.detail == 1) {
     var clickedCard = e.target.parentNode;
     if (flippedCardIDs.includes(clickedCard.getAttribute("id"))) {
@@ -162,7 +160,6 @@ cardboard.addEventListener("click", function flipCard(e) {
         }
       }
     }
-    console.log(flippedCards, flippedCardIDs);
   }
 });
 
@@ -170,14 +167,11 @@ function match(cardArray, cardIds, cardList) {
   var clickedCards = document.querySelectorAll(".active");
 
   if (cardArray[0] === cardArray[1]) {
-    console.log(clickedCards);
-
     cardArray.splice(-2, 2);
     setTimeout(() => {
       clickedCards.forEach(card => {
         card.classList.remove("active");
         card.classList.add("match");
-        console.log(card.getAttribute("id"));
         isComplete(cardList, flippedCardIDs);
       });
       starRating(true);
@@ -239,10 +233,8 @@ function starRating(val) {
   var html = "";
   if (val) {
     numberOfStars < 3 ? numberOfStars++ : "";
-    console.log(numberOfStars);
   } else {
     numberOfStars > 0 ? numberOfStars-- : "";
-    console.log(numberOfStars);
   }
 
   for (var i = 0; i < numberOfStars; i++) {
