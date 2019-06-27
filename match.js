@@ -143,7 +143,6 @@ cardboard.addEventListener("click", function flipCard(e) {
         clickedCard.nodeName === "DIV"
           ? clickedCard.classList.add("active", "flip")
           : "";
-        console.log(clickedCard);
       } else {
         if (
           clickedCard.getAttribute("id") ===
@@ -162,7 +161,6 @@ cardboard.addEventListener("click", function flipCard(e) {
           match(flippedCards, flippedCardIDs, cardList);
         }
       }
-      console.log(flippedCards, flippedCardIDs, cardList);
     }
   }
 });
@@ -177,7 +175,6 @@ function match(cardArray, cardIds, cardList) {
         card.classList.remove("active");
         card.classList.add("match");
         isComplete(cardList, flippedCardIDs);
-        console.log(flippedCardIDs);
       });
       starRating(true);
     }, delay);
