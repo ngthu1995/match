@@ -60,7 +60,7 @@ var numberOfStars,
   moves,
   interval;
 
-let delay = 1000;
+const delay = 1000;
 var cardboard = document.getElementById("card-board");
 var move = document.querySelector("#move");
 var time = document.querySelector("#timer");
@@ -130,12 +130,12 @@ function newBoard(cards) {
 ////// GAME  START /////
 ////////////////////////
 cardboard.addEventListener("click", function flipCard(e) {
-  if (!e.detail || e.detail == 1) {
+  if (!e.detail || e.detail === 1) {
     var clickedCard = e.target.parentNode;
     if (flippedCardIDs.includes(clickedCard.getAttribute("id"))) {
       return;
     }
-    if (flippedCards.length < 2) {
+    if (flippedCards.length < 2 && clickedCard.nodeName !== "BODY") {
       if (flippedCards.length === 0) {
         moveCounter();
         flippedCards.push(clickedCard.getAttribute("name"));
@@ -143,6 +143,7 @@ cardboard.addEventListener("click", function flipCard(e) {
         clickedCard.nodeName === "DIV"
           ? clickedCard.classList.add("active", "flip")
           : "";
+        console.log(clickedCard);
       } else {
         if (
           clickedCard.getAttribute("id") ===
@@ -154,11 +155,14 @@ cardboard.addEventListener("click", function flipCard(e) {
         } else {
           flippedCards.push(clickedCard.getAttribute("name"));
           flippedCardIDs.push(clickedCard.getAttribute("id"));
-          clickedCard.classList.add("active", "flip");
+          clickedCard.nodeName === "DIV"
+            ? clickedCard.classList.add("active", "flip")
+            : "";
           // clickedCard.classList.add("flip");
           match(flippedCards, flippedCardIDs, cardList);
         }
       }
+      console.log(flippedCards, flippedCardIDs, cardList);
     }
   }
 });
@@ -173,6 +177,7 @@ function match(cardArray, cardIds, cardList) {
         card.classList.remove("active");
         card.classList.add("match");
         isComplete(cardList, flippedCardIDs);
+        console.log(flippedCardIDs);
       });
       starRating(true);
     }, delay);
@@ -248,6 +253,7 @@ function starRating(val) {
 ////////////////////////
 function showModal() {
   modal.style.display = "block";
+  clearInterval(interval);
 }
 
 function hideModal() {
