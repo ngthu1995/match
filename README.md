@@ -20,8 +20,6 @@ Move Counter - Displays the number of turns the player has taken, starting with 
 
 ### Deployment:
 
-The demo site can be viewed here: https://ngthu1995-match.herokuapp.com/
-
 ### Screenshot:
 
 ![Main site](/src/demo.png "Screenshot of the matching game")
